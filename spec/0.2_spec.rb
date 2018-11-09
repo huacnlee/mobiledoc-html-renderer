@@ -458,7 +458,7 @@ module ZeroTwoZero
 
       mobiledoc['version'] = '0.2.1'
 
-      expect{ render(mobiledoc) }.to raise_error('Unexpected Mobiledoc version "0.2.1"')
+      render(mobiledoc)
     end
 
     it 'XSS: unexpected markup and list section tag names are not renderered' do

@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'mobiledoc/utils/section_types'
 require 'mobiledoc/utils/marker_types'
 require 'mobiledoc/cards/image'
+require 'json'
 
 module ZeroThreeZero
   include Mobiledoc::Utils::SectionTypes
@@ -29,6 +30,12 @@ module ZeroThreeZero
       rendered = render(mobiledoc)
 
       expect(rendered).to eq('<div></div>')
+    end
+
+    it "should render html" do
+      doc = JSON.parse(File.open("./spec/example.mobiledoc").read)
+      html = File.open("./spec/example.html").read
+      expect(render(doc)).to eq(html)
     end
 
     it 'renders a mobiledoc without markups' do
@@ -469,10 +476,6 @@ module ZeroThreeZero
       }
 
       expect{ render(mobiledoc) }.to raise_error('Unexpected Mobiledoc version "0.1.0"')
-
-      mobiledoc['version'] = '0.2.1'
-
-      expect{ render(mobiledoc) }.to raise_error('Unexpected Mobiledoc version "0.2.1"')
     end
 
     it 'XSS: unexpected markup and list section tag names are not renderered' do

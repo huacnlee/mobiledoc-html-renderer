@@ -6,7 +6,7 @@ require "mobiledoc/error"
 
 module Mobiledoc
   class Renderer_0_2
-    MOBILEDOC_VERSION = '0.2.0'
+    MOBILEDOC_VERSION = '~> 0.2.0'
 
     include Mobiledoc::Utils::SectionTypes
     include Mobiledoc::Utils::TagNames
@@ -27,13 +27,19 @@ module Mobiledoc
     end
 
     def validate_version(version)
-      if version != self.class::MOBILEDOC_VERSION
+      unless self.class.match_version?(version)
         raise Mobiledoc::Error.new(%Q[Unexpected Mobiledoc version "#{version}"]);
       end
     end
 
+    def self.match_version?(version)
+      Gem::Dependency.new('', self::MOBILEDOC_VERSION).match?('', version)
+    end
+
     def render
       root = create_document_fragment
+
+      return "" if sections.nil?
 
       sections.each do |section|
         rendered = render_section(section)
