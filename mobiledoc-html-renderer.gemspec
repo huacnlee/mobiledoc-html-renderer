@@ -1,7 +1,10 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mobiledoc_html_renderer/version'
+require "mobiledoc_html_renderer/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "mobiledoc-html-renderer"
@@ -9,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Justin Giancola"]
   spec.email         = ["justin.giancola@gmail.com"]
 
-  spec.summary       = %q{MobileDoc HTML Renderer for Ruby}
+  spec.summary       = "MobileDoc HTML Renderer for Ruby"
   spec.homepage      = "https://github.com/elucid/mobiledoc-html-renderer"
   spec.license       = "MIT"
 

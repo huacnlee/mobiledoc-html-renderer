@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "mobiledoc_html_renderer/version"
 require "mobiledoc/renderers/0.2"
 require "mobiledoc/renderers/0.3"
@@ -9,7 +11,7 @@ module Mobiledoc
   class HTMLRenderer
     attr_accessor :state
 
-    def initialize(options={})
+    def initialize(options = {})
       cards = options[:cards] || []
       validate_cards(cards)
 
@@ -36,7 +38,7 @@ module Mobiledoc
       end
 
       cards.each do |card|
-        unless card.type == 'html'
+        unless card.type == "html"
           raise Mobiledoc::Error.new(%Q[Card "#{card.name}" must be of type "html", was "#{card.type}"])
         end
 
@@ -52,7 +54,7 @@ module Mobiledoc
       end
 
       atoms.each do |atom|
-        unless atom.type == 'html'
+        unless atom.type == "html"
           raise Mobiledoc::Error.new(%Q[Atom "#{atom.name}" must be of type "html", was "#{atom.type}"])
         end
 
@@ -63,7 +65,7 @@ module Mobiledoc
     end
 
     def render(mobiledoc)
-      version = mobiledoc['version']
+      version = mobiledoc["version"]
 
       if Renderer_0_3.match_version?(version)
         Renderer_0_3.new(mobiledoc, state).render

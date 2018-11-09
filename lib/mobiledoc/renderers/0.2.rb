@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "nokogiri"
 require "mobiledoc/utils/section_types"
 require "mobiledoc/utils/tag_names"
@@ -6,7 +8,7 @@ require "mobiledoc/error"
 
 module Mobiledoc
   class Renderer_0_2
-    MOBILEDOC_VERSION = '~> 0.2.0'
+    MOBILEDOC_VERSION = "~> 0.2.0"
 
     include Mobiledoc::Utils::SectionTypes
     include Mobiledoc::Utils::TagNames
@@ -14,12 +16,12 @@ module Mobiledoc
     attr_accessor :root, :marker_types, :sections, :doc, :cards, :card_options, :unknown_card_handler
 
     def initialize(mobiledoc, state)
-      version, section_data = *mobiledoc.values_at('version', 'sections')
+      version, section_data = *mobiledoc.values_at("version", "sections")
       validate_version(version)
 
       self.marker_types, self.sections = *section_data
 
-      self.doc = Nokogiri::HTML.fragment('')
+      self.doc = Nokogiri::HTML.fragment("")
       self.root = create_document_fragment
       self.cards = state[:cards]
       self.card_options = state[:card_options]
@@ -28,12 +30,12 @@ module Mobiledoc
 
     def validate_version(version)
       unless self.class.match_version?(version)
-        raise Mobiledoc::Error.new(%Q[Unexpected Mobiledoc version "#{version}"]);
+        raise Mobiledoc::Error.new(%Q[Unexpected Mobiledoc version "#{version}"])
       end
     end
 
     def self.match_version?(version)
-      Gem::Dependency.new('', self::MOBILEDOC_VERSION).match?('', version)
+      Gem::Dependency.new("", self::MOBILEDOC_VERSION).match?("", version)
     end
 
     def render
@@ -49,11 +51,11 @@ module Mobiledoc
         end
       end
 
-      root.to_html(save_with: 0).gsub('  ', ' &nbsp;')
+      root.to_html(save_with: 0).gsub("  ", " &nbsp;")
     end
 
     def create_document_fragment
-      create_element('div')
+      create_element("div")
     end
 
     def create_element(tag_name)
@@ -69,7 +71,7 @@ module Mobiledoc
       Nokogiri::XML::Text.new(text, doc)
     end
 
-    def create_element_from_marker_type(tag_name='', attributes=[])
+    def create_element_from_marker_type(tag_name = "", attributes = [])
       element = create_element(tag_name)
 
       attributes.each_slice(2) do |prop_name, prop_value|
@@ -106,8 +108,8 @@ module Mobiledoc
     end
 
     def render_image_section(type, url)
-      element = create_element('img')
-      set_attribute(element, 'src', url)
+      element = create_element("img")
+      set_attribute(element, "src", url)
       element
     end
 
@@ -123,12 +125,12 @@ module Mobiledoc
     end
 
     def render_list_item(markers)
-      element = create_element('li')
+      element = create_element("li")
       _render_markers_on_element(element, markers)
       element
     end
 
-    def render_card_section(type, name, payload={})
+    def render_card_section(type, name, payload = {})
       card = find_card(name)
 
       _render_card_section(card, name, payload)
@@ -162,10 +164,10 @@ module Mobiledoc
     end
 
     def _create_card_element
-      create_element('div')
+      create_element("div")
     end
 
-    def _create_card_argument(card_name, payload={})
+    def _create_card_argument(card_name, payload = {})
       env = {
         name: card_name
       }
@@ -177,7 +179,7 @@ module Mobiledoc
       return unless rendered
 
       unless rendered.is_a?(String)
-        raise Mobiledoc::Error.new(%Q[Card "#{card_name}" must render html, but result was #{rendered.class}"]);
+        raise Mobiledoc::Error.new(%Q[Card "#{card_name}" must render html, but result was #{rendered.class}"])
       end
     end
 

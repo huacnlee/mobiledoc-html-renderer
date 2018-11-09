@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 module Mobiledoc
   module ImageCard
     module_function
 
     def name
-      'image-card'
+      "image-card"
     end
 
     def type
-      'html'
+      "html"
     end
 
     def render(env, payload, options)
-      if payload['src']
+      if payload["src"]
         %Q[<img src="#{payload['src']}">]
       end
     end

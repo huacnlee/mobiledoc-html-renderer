@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "mobiledoc/error"
 
 module Mobiledoc
@@ -5,7 +7,7 @@ module Mobiledoc
     module_function
 
     def type
-      'html'
+      "html"
     end
 
     def render(env, payload, options)

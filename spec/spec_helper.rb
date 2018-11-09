@@ -1,2 +1,4 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'mobiledoc_html_renderer'
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require "mobiledoc_html_renderer"

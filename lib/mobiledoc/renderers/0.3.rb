@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 require "mobiledoc/renderers/0.2"
-require 'mobiledoc/utils/marker_types'
+require "mobiledoc/utils/marker_types"
 require "mobiledoc/error"
 
 module Mobiledoc
   class Renderer_0_3 < Renderer_0_2
-    MOBILEDOC_VERSION = '~> 0.3.0'
+    MOBILEDOC_VERSION = "~> 0.3.0"
 
     include Mobiledoc::Utils::MarkerTypes
 
     attr_accessor :atom_types, :card_types, :atoms, :unknown_atom_handler
 
     def initialize(mobiledoc, state)
-      version, sections, atom_types, card_types, marker_types = *mobiledoc.values_at('version', 'sections', 'atoms', 'cards', 'markups')
+      version, sections, atom_types, card_types, marker_types = *mobiledoc.values_at("version", "sections", "atoms", "cards", "markups")
       validate_version(version)
 
-      self.doc = Nokogiri::HTML.fragment('')
+      self.doc = Nokogiri::HTML.fragment("")
       self.root = create_document_fragment
       self.sections = sections
       self.atom_types = atom_types
@@ -73,7 +75,7 @@ module Mobiledoc
         when ATOM_MARKER_TYPE
           append_child(current_element, _render_atom(value))
         else
-          raise Mobiledoc::Error.new("Unknown markup type (#{type})");
+          raise Mobiledoc::Error.new("Unknown markup type (#{type})")
         end
 
         close_count.times do
@@ -96,7 +98,7 @@ module Mobiledoc
 
       _validate_atom_render(rendered, atom.name)
 
-      rendered || create_text_node('')
+      rendered || create_text_node("")
     end
 
     def _find_atom_by_index(index)
@@ -112,7 +114,7 @@ module Mobiledoc
       [ atom, name, value, payload ]
     end
 
-    def _create_atom_argument(atom, atom_name, value, payload={})
+    def _create_atom_argument(atom, atom_name, value, payload = {})
       env = {
         name: atom_name
       }
@@ -124,9 +126,8 @@ module Mobiledoc
       return unless rendered
 
       unless rendered.is_a?(String)
-        raise Mobiledoc::Error.new(%Q[Atom "#{atom_name}" must render html, but result was #{rendered.class}"]);
+        raise Mobiledoc::Error.new(%Q[Atom "#{atom_name}" must render html, but result was #{rendered.class}"])
       end
     end
-
   end
 end

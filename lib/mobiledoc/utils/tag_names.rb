@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 module Mobiledoc
   module Utils
     module TagNames
       MARKUP_SECTION_TAG_NAMES = [
-        'p', 'h1', 'h2', 'h3', 'blockquote', 'pull-quote'
+        "p", "h1", "h2", "h3", "blockquote", "pull-quote"
       ]
 
       LIST_SECTION_TAG_NAMES = [
-        'ul', 'ol'
+        "ul", "ol"
       ]
 
       MARKUP_TYPES = [
-        'b', 'i', 'strong', 'em', 'a', 'u', 'sub', 'sup', 's'
+        "b", "i", "strong", "em", "a", "u", "sub", "sup", "s"
       ]
 
       def normalize_tag_name(name)
